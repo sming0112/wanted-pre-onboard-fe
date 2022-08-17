@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import Form from "./Components/Form";
 import styled from "styled-components";
 import { SignContext } from "../../context";
+import { useNavigate } from "react-router-dom";
 
 const ModalWrapper = styled.div`
   display: flex;
@@ -10,19 +11,28 @@ const ModalWrapper = styled.div`
   height: 100vh;
 `;
 
-function Login() {
-  const { signup } = useContext(SignContext);
+const DATA = [
+  {
+    type: "email",
+    text: "이메일",
+  },
+  {
+    type: "password",
+    text: "비밀번호",
+  },
+];
 
-  const DATA = [
-    {
-      type: "email",
-      text: "이메일",
-    },
-    {
-      type: "password",
-      text: "비밀번호",
-    },
-  ];
+function Login() {
+  const { signup, access_token } = useContext(SignContext);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/todo");
+    }
+  }, []);
 
   return (
     <ModalWrapper>

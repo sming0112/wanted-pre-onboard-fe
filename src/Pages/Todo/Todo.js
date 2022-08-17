@@ -3,6 +3,7 @@ import styled from "styled-components";
 import TodoItem from "./Components/TodoItem";
 import { SignContext } from "../../context";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const TodoFormWrapper = styled.div`
   display: flex;
@@ -71,6 +72,15 @@ function Todo() {
   const [text, setText] = useState("");
 
   const { update, setUpdate, access_token } = useContext(SignContext);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, []);
 
   useEffect(() => {
     axios(

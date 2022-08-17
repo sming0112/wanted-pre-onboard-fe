@@ -49,8 +49,9 @@ function Button(props) {
       )
       .then(res => {
         if (res.data.access_token) {
+          localStorage.setItem("token", res.data.access_token);
           alert("회원가입 성공! Todo 페이지로 이동합니다.");
-          setSignup(false);
+          navigate("/todo");
         }
       })
       .catch(err => alert("회원가입 실패!"));
