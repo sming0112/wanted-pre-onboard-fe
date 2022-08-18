@@ -71,12 +71,13 @@ function Todo() {
   const [list, setList] = useState([]);
   const [text, setText] = useState("");
 
-  const { update, setUpdate, access_token } = useContext(SignContext);
+  const { update, setUpdate } = useContext(SignContext);
 
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/");
     }
@@ -87,11 +88,15 @@ function Todo() {
       "https://5co7shqbsf.execute-api.ap-northeast-2.amazonaws.com/production/todos",
       {
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${token}`,
         },
       }
-    ).then(res => setList(res.data));
-    setUpdate(false);
+    ).then(res => {
+      if (res.status === 200) {
+        setList(res.data);
+        setUpdate(false);
+      }
+    });
   }, [update]);
 
   const handleAddItemInput = e => {
@@ -111,12 +116,16 @@ function Todo() {
         },
         {
           headers: {
-            Authorization: `Bearer ${access_token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       )
-      .then(setUpdate(true));
-    resetInput();
+      .then(res => {
+        if (res.status === 201) {
+          setUpdate(true);
+          resetInput();
+        }
+      });
   };
 
   return (
@@ -134,9 +143,9 @@ function Todo() {
           <AddItemButton onClick={addTodoItem}>추가</AddItemButton>
         </AddItems>
         <TodoList>
-          {list.map((todo, idx) => (
+          {list.map(todo => (
             <TodoItem
-              key={idx}
+              key={todo.id}
               id={todo.id}
               todo={todo.todo}
               isCompleted={todo.isCompleted}

@@ -10,7 +10,7 @@ const ButtonAtom = styled.button`
   margin-top: 16px;
   padding: 14px;
   font-size: 16px;
-  background: ${props => props.color || "black"};
+  background: ${props => props.color};
   color: #ffffff;
   border: 0;
   border-radius: 6px;
@@ -18,7 +18,7 @@ const ButtonAtom = styled.button`
 `;
 
 function Button(props) {
-  const { signup, setSignup, email, password } = useContext(SignContext);
+  const { signup, email, password } = useContext(SignContext);
 
   const navigate = useNavigate();
 
@@ -39,8 +39,6 @@ function Button(props) {
   };
 
   const handleSignup = e => {
-    console.log("email", email);
-    console.log("password", password);
     e.preventDefault();
     axios
       .post(

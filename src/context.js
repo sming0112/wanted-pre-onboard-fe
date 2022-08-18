@@ -9,8 +9,6 @@ function ContextProvider(props) {
   const [hasValidation, setHasValidation] = useState(false);
   const [update, setUpdate] = useState(false);
 
-  const access_token = localStorage.getItem("token");
-
   return (
     <SignContext.Provider
       value={{
@@ -22,7 +20,6 @@ function ContextProvider(props) {
         setPassword,
         hasValidation,
         setHasValidation,
-        access_token,
         update,
         setUpdate,
       }}

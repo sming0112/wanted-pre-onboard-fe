@@ -50,7 +50,9 @@ function TodoItem({ id, todo, isCompleted }) {
   const [editingText, setEditingText] = useState(todo);
   const [isChecked, setIsChecked] = useState(isCompleted);
 
-  const { setUpdate, access_token } = useContext(SignContext);
+  const { setUpdate } = useContext(SignContext);
+
+  const token = localStorage.getItem("token");
 
   const editTodoItem = () => {
     setEdit(true);
@@ -78,12 +80,16 @@ function TodoItem({ id, todo, isCompleted }) {
         },
         {
           headers: {
-            Authorization: `Bearer ${access_token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       )
-      .then(setUpdate(true))
-      .then(setEdit(false));
+      .then(res => {
+        if (res.status === 200) {
+          setUpdate(true);
+          setEdit(false);
+        }
+      });
   };
 
   const deleteItem = () => {
@@ -92,12 +98,16 @@ function TodoItem({ id, todo, isCompleted }) {
         `https://5co7shqbsf.execute-api.ap-northeast-2.amazonaws.com/production/todos/${id}`,
         {
           headers: {
-            Authorization: `Bearer ${access_token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       )
-      .then(setUpdate(true))
-      .then(setEdit(false));
+      .then(res => {
+        if (res.status === 204) {
+          setUpdate(true);
+          setEdit(false);
+        }
+      });
   };
 
   return (

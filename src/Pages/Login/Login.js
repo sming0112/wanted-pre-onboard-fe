@@ -23,12 +23,13 @@ const DATA = [
 ];
 
 function Login() {
-  const { signup, access_token } = useContext(SignContext);
+  const { signup } = useContext(SignContext);
 
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (token) {
       navigate("/todo");
     }

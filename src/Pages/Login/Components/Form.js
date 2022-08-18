@@ -90,7 +90,7 @@ function Form({ type, title, inputData }) {
         ))}
       </div>
       <Button
-        color={hasValidation && "#3367ff"}
+        color={hasValidation ? "#3367ff" : "#bbb"}
         value={title}
         disabled={!hasValidation}
       />
