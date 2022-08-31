@@ -84,14 +84,11 @@ function Todo() {
   }, []);
 
   useEffect(() => {
-    axios(
-      "https://5co7shqbsf.execute-api.ap-northeast-2.amazonaws.com/production/todos",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    ).then(res => {
+    axios("https://n38lcff1wk.execute-api.ap-northeast-2.amazonaws.com/todos", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(res => {
       if (res.status === 200) {
         setList(res.data);
         setUpdate(false);
@@ -110,7 +107,7 @@ function Todo() {
   const addTodoItem = () => {
     axios
       .post(
-        "https://5co7shqbsf.execute-api.ap-northeast-2.amazonaws.com/production/todos",
+        "https://n38lcff1wk.execute-api.ap-northeast-2.amazonaws.com/todos",
         {
           todo: text,
         },

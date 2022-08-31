@@ -73,7 +73,7 @@ function TodoItem({ id, todo, isCompleted }) {
   const updateItem = () => {
     axios
       .put(
-        `https://5co7shqbsf.execute-api.ap-northeast-2.amazonaws.com/production/todos/${id}`,
+        `https://n38lcff1wk.execute-api.ap-northeast-2.amazonaws.com/todos/${id}`,
         {
           todo: editingText,
           isCompleted: isChecked,
@@ -95,7 +95,7 @@ function TodoItem({ id, todo, isCompleted }) {
   const deleteItem = () => {
     axios
       .delete(
-        `https://5co7shqbsf.execute-api.ap-northeast-2.amazonaws.com/production/todos/${id}`,
+        `https://n38lcff1wk.execute-api.ap-northeast-2.amazonaws.com/todos/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

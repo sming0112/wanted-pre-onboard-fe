@@ -26,7 +26,7 @@ function Button(props) {
     e.preventDefault();
     axios
       .post(
-        "https://5co7shqbsf.execute-api.ap-northeast-2.amazonaws.com/production/auth/signin",
+        "https://n38lcff1wk.execute-api.ap-northeast-2.amazonaws.com/auth/signin",
         { email, password }
       )
       .then(res => {
@@ -42,7 +42,7 @@ function Button(props) {
     e.preventDefault();
     axios
       .post(
-        "https://5co7shqbsf.execute-api.ap-northeast-2.amazonaws.com/production/auth/signup",
+        "https://n38lcff1wk.execute-api.ap-northeast-2.amazonaws.com/auth/signup",
         { email, password }
       )
       .then(res => {
